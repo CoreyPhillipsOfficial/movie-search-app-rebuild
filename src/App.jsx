@@ -14,11 +14,17 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [query, setquery] = useState('');
+  const [query, setQuery] = useState('');
+  // console.log(setQuery);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const API_KEY = import.meta.env.VITE_OMDB_API_KEY
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Searching for:', query);
+    console.log('Searching for:', query); // print the query
     // SearchMovies() will go here
   }
 
