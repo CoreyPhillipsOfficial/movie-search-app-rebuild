@@ -22,11 +22,34 @@ function App() {
 
   const API_KEY = import.meta.env.VITE_OMDB_API_KEY
 
+  const searchMovies = async () => {
+    setLoading(true);
+    setError(null);
+    setMovies([]);
+
+    try {
+      // console.log('API KEY:', API_KEY);
+      const response = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`);
+      const data = await response.json();
+
+      if (data.Response === 'True') {
+        setMovies(data.Search);
+      } else {
+        setError(data.Error || 'No movies found.');
+      }
+    } catch (err) {
+      setError('Failed to fetch movies. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Searching for:', query); // print the query
-    // SearchMovies() will go here
-  }
+    if (!query.trim()) return;
+    searchMovies();
+  };
 
   return (
     <div className="App">
@@ -39,6 +62,8 @@ function App() {
         />
         <button type='submit'>Search</button>
       </form>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 }
