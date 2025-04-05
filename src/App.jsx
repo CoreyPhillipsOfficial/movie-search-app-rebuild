@@ -29,8 +29,11 @@ function App() {
 
     try {
       // console.log('API KEY:', API_KEY);
-      const response = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`);
+      // const response = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`);
+      const response = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
       const data = await response.json();
+      console.log(data); // prints the response
+
 
       if (data.Response === 'True') {
         setMovies(data.Search);
@@ -64,6 +67,17 @@ function App() {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="results">
+        {movies.map((movie) => (
+          <div className="movie-card" key={movie.imdbID}>
+            <img src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/200x300?text=No+Image'}
+              alt={movie.Title}
+            />
+            <h3>{movie.Title}</h3>
+            <p>{movie.Year}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
