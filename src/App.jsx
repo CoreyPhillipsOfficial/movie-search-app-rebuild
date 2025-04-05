@@ -77,6 +77,7 @@ function App() {
           ...prev,
           [id]: data
         }));
+        console.log(data);
       }
 
       setselectedMovieId(id);
