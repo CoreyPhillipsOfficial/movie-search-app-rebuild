@@ -32,7 +32,6 @@ function App() {
     setMovies([]);
 
     try {
-      console.log('API KEY:', API_KEY);
       const response = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
       const data = await response.json();
       console.log(data); // prints the response
