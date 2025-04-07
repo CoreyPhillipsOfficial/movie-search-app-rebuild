@@ -32,7 +32,7 @@ function App() {
     setMovies([]);
 
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
+      const response = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`);
       const data = await response.json();
       console.log(data); // prints the response
 
@@ -69,7 +69,7 @@ function App() {
     try {
       // If we haven't fetched this movie yet, fetch it
       if (!selectedMovieDetails[id]) {
-        const res = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
         const data = await res.json();
 
         setselectedMovieDetails((prev) => ({
